@@ -1,5 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:apc/presentation/screens/auth_screen.dart';
+import 'package:apc/presentation/state/auth_provider.dart';
+import 'package:apc/presentation/state/nav_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,152 +13,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'A Players Club',
-      themeMode: ThemeMode.dark,
-      darkTheme: ThemeData(
-        colorScheme: const ColorScheme.dark(
-          primary: Color(0xFF000000),
-          secondary: Color(0xFFFFFFFF),
-          tertiary: Color(0xFFAA6C23),
-          onSurface: Color.fromARGB(255, 255, 255, 255),
-          onPrimary: Color(0xFFFFFFFF),
-          surface: Color(0xFF3A3A3A),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => NavProvider()),
+      ],
+      child: MaterialApp(
+        title: 'A Players Club',
+        themeMode: ThemeMode.dark,
+        darkTheme: ThemeData(
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xFF000000),
+            secondary: Color(0xFFFFFFFF),
+            tertiary: Color(0xFFAA6C23),
+            onSurface: Color.fromARGB(255, 255, 255, 255),
+            onPrimary: Color(0xFFFFFFFF),
+            surface: Color(0xFF3A3A3A),
+          ),
+          fontFamily: 'Black Mango',
         ),
-        fontFamily: 'Black Mango',
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final List<String> buttons = const [
-    'Events',
-    'Resources',
-    'Mentors',
-    'Accountability'
-  ];
-
-  int selectedTabIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'A Players Club',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: false,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.grey,
-            ),
-          )
-        ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.tertiary,
-                Theme.of(context).colorScheme.primary
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.center,
-            ),
-          ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(80),
-          child: Container(
-            color: Theme.of(context).colorScheme.surface,
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            alignment: Alignment.center,
-            child: SizedBox(
-              height: 48,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: buttons.length,
-                  itemBuilder: (context, index) {
-                    final text = buttons[index];
-                    bool isSelected = index == selectedTabIndex;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedTabIndex = index;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            text,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                  color: isSelected
-                                      ? Theme.of(context).colorScheme.tertiary
-                                      : Theme.of(context).colorScheme.onSurface,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  buttons[selectedTabIndex],
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const Icon(Icons.tune_sharp)
-              ],
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          // Home
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
-            label: 'Home',
-          ),
-          // Network
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.group),
-            label: 'Network',
-          ),
-        ],
+        home: const AuthScreen(),
       ),
     );
   }
