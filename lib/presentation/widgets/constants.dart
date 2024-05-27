@@ -5,5 +5,5 @@ class WidgetConstants {
       const EdgeInsets.symmetric(horizontal: 10);
 
   static EdgeInsets itemPadding =
-      const EdgeInsets.symmetric(horizontal: 10, vertical: 10);
+      const EdgeInsets.symmetric(horizontal: 10, vertical: 15);
 }

@@ -5,6 +5,7 @@ import 'package:apc/presentation/state/nav_provider.dart';
 import 'package:apc/presentation/widgets/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -37,8 +38,9 @@ class _MainScreenState extends State<MainScreen> {
     Provider.of<NavProvider>(context, listen: false).setIndex(index);
   }
 
-  void _logout(BuildContext context) {
-    Provider.of<AuthProvider>(context, listen: false).logout();
+  void _goToProfile(BuildContext context) {
+    HapticFeedback.mediumImpact();
+    Navigator.of(context).pushNamed('/profile');
   }
 
   @override
@@ -55,29 +57,19 @@ class _MainScreenState extends State<MainScreen> {
           Padding(
             padding: WidgetConstants.horizontalPadding,
             child: GestureDetector(
-              onTap: () => _logout(context),
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                child: Icon(
-                  CupertinoIcons.person,
-                  color: Theme.of(context).colorScheme.tertiary,
+              onTap: () => _goToProfile(context),
+              child: Hero(
+                tag: 'profileAvatar',
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  foregroundImage: const NetworkImage(
+                    'https://i.ibb.co/P4m662W/ai-gen-me.png',
+                  ),
                 ),
               ),
             ),
           )
         ],
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.tertiary,
-                Theme.of(context).colorScheme.primary
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.center,
-            ),
-          ),
-        ),
       ),
       body: Consumer<NavProvider>(
         builder: (context, navProvider, child) {

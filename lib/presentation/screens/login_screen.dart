@@ -25,11 +25,26 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 width: double.infinity,
               ),
-              const Text('Login Screen'),
+              Text(
+                'Login Screen',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 onPressed: () {
                   _login(context);
                 },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.tertiary,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      width: 2,
+                    ),
+                  ),
+                ),
                 child: const Text('Login'),
               )
             ],

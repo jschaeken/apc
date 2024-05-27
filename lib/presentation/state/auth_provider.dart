@@ -15,7 +15,7 @@ class AuthProvider with ChangeNotifier {
   void login(String username, String password) async {
     _isLoading = true;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     _isAuthenticated = true;
     _isLoading = false;
     notifyListeners();

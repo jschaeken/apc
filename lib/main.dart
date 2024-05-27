@@ -1,3 +1,4 @@
+import 'package:apc/presentation/pages/profile_page.dart';
 import 'package:apc/presentation/screens/auth_screen.dart';
 import 'package:apc/presentation/state/auth_provider.dart';
 import 'package:apc/presentation/state/nav_provider.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'Black Mango',
         ),
+        routes: {
+          '/profile': (context) => const ProfilePage(),
+        },
         home: const AuthScreen(),
       ),
     );
