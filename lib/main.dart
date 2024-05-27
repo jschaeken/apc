@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,15 +29,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<String> buttons = const [
     'Events',
     'Resources',
     'Mentors',
     'Accountability'
   ];
+
+  int selectedTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -83,19 +91,29 @@ class HomePage extends StatelessWidget {
                   itemCount: buttons.length,
                   itemBuilder: (context, index) {
                     final text = buttons[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          text,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontWeight: FontWeight.bold),
+                    bool isSelected = index == selectedTabIndex;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedTabIndex = index;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            text,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: isSelected
+                                      ? Theme.of(context).colorScheme.tertiary
+                                      : Theme.of(context).colorScheme.onSurface,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ),
                     );
@@ -104,8 +122,40 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(
-        child: Text('Welcome to the club!'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  buttons[selectedTabIndex],
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const Icon(Icons.tune_sharp)
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          // Home
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home),
+            label: 'Home',
+          ),
+          // Network
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.group),
+            label: 'Network',
+          ),
+        ],
       ),
     );
   }
