@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
             child: GestureDetector(
               onTap: () => _goToProfile(context),
               child: Hero(
-                tag: 'profileAvatar',
+                tag: 'self',
                 child: CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   foregroundImage: const NetworkImage(
@@ -70,6 +70,45 @@ class _MainScreenState extends State<MainScreen> {
             ),
           )
         ],
+      ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+          side: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+              ),
+              child: Image.asset('assets/images/Logo.png'),
+            ),
+            ListTile(
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _goToProfile(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: const Text('Logout'),
+              onTap: () {
+                Provider.of<AuthProvider>(context, listen: false).logout();
+              },
+            ),
+          ],
+        ),
       ),
       body: Consumer<NavProvider>(
         builder: (context, navProvider, child) {

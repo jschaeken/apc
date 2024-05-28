@@ -1,3 +1,6 @@
+import 'package:apc/domain/models/event.dart';
+import 'package:apc/domain/models/mentor.dart';
+import 'package:apc/domain/models/resource.dart';
 import 'package:apc/domain/models/space.dart';
 import 'package:apc/presentation/widgets/constants.dart';
 import 'package:apc/presentation/widgets/home/section_selection_bar.dart';
@@ -16,10 +19,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Space> demoButtons = [
-    const Space(name: 'Events', id: 'events'),
-    const Space(name: 'Resources', id: 'resources'),
-    const Space(name: 'Mentors', id: 'mentors'),
-    const Space(name: 'Accountability', id: 'accountability'),
+    const Space(name: 'Events', id: 'events', type: Event),
+    const Space(name: 'Resources', id: 'resources', type: Resource),
+    const Space(name: 'Mentors', id: 'mentors', type: Mentor),
+  ];
+
+  List<dynamic> demoCards = [
+    Event(
+      id: '1',
+      title: 'Marbella Event',
+      subtitle: '28th June - 1st July',
+      imageUrl:
+          'https://scontent.cdninstagram.com/v/t51.29350-15/446220488_1018256736590376_2041815765248959615_n.jpg?stp=dst-jpg_e35_p1080x1080&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYyOTM1MCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=rkbS-zjdgagQ7kNvgF_iz_D&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzM3NjQwODg1MTk4NzQ4ODM3NA%3D%3D.2-ccb7-5&oh=00_AYAW_H0zOocl8qpovoSh7PfD0bKwhZIB7p-pg0IUciDJyg&oe=665BD006&_nc_sid=10d13b',
+      location: 'Marbella, Spain',
+    ),
+    Event(
+      id: '2',
+      title: 'Darren Lee Call',
+      subtitle: 'May 23rd - 2pm EST',
+      imageUrl:
+          'https://scontent.cdninstagram.com/v/t51.29350-15/419576751_924968325217028_4678924694160481415_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEwODAuc2RyLmYyOTM1MCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=108&_nc_ohc=FJTrrzRqWbgQ7kNvgEP9aIW&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzI4MjI3NTc0ODMzMDkwNTgwMQ%3D%3D.2-ccb7-5&oh=00_AYAsbr9EOnD0YMOEVVcgtqpaUikYHgn_GZPUaLLF5WsCEw&oe=665BF240&_nc_sid=10d13b',
+    ),
+    // Week in Tulum
+    Event(
+      id: '3',
+      title: 'Week in Tulum',
+      subtitle: 'First Week of August',
+      imageUrl:
+          'https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRbhlHy_K1AUEqzr7KjMFoxJDkq_i8tudx_H1X5ERh5LWgX8OdNUSkxkO-yvtErKM6xEaRUQSf5wqcNr6TIMBNIy_2uT8GCnQkmhp0ySg',
+      location: 'Tulum, Mexico',
+    ),
   ];
 
   int selectedTabIndex = 0;
@@ -95,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                // List of Sections
                 Padding(
                   padding: WidgetConstants.horizontalPadding,
                   child: ListView.builder(
@@ -190,12 +220,15 @@ class _HomePageState extends State<HomePage> {
             return SliverList(
               delegate: SliverChildListDelegate(
                 List.generate(
-                  (demoTileCount / (selectedTabIndex + 1)).round(),
+                  demoCards.length,
                   (idx) {
                     return SectionCard(
-                      title: 'Title ${idx + 1}',
-                      subtitle: 'Subtitle ${idx + 1}',
-                      imageUrl: 'https://picsum.photos/600/600/?random=$idx',
+                      type: demoButtons[selectedTabIndex].type,
+                      title: demoCards[idx].title,
+                      subtitle: demoCards[idx].subtitle ?? '',
+                      imageUrl: demoCards[idx].imageUrl == null
+                          ? 'https://picsum.photos/600/600/?random=$idx'
+                          : demoCards[idx].imageUrl!,
                       onTap: () {},
                     )
                         .animate()
@@ -218,6 +251,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class SectionCard extends StatelessWidget {
+  final Type type;
   final String title;
   final String subtitle;
   final String imageUrl;
@@ -225,6 +259,7 @@ class SectionCard extends StatelessWidget {
 
   const SectionCard({
     super.key,
+    required this.type,
     required this.title,
     required this.subtitle,
     required this.imageUrl,
@@ -275,8 +310,8 @@ class SectionCard extends StatelessWidget {
                   // color: Colors.red,
                   gradient: LinearGradient(
                     colors: [
-                      Theme.of(context).colorScheme.surface.withOpacity(.6),
-                      Theme.of(context).colorScheme.surface.withOpacity(1),
+                      Theme.of(context).colorScheme.primary.withOpacity(.4),
+                      Theme.of(context).colorScheme.primary.withOpacity(.8),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

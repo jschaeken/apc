@@ -1,18 +1,38 @@
+import 'package:apc/presentation/state/auth_provider.dart';
 import 'package:apc/presentation/widgets/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final String id;
+
+  const ProfilePage({
+    required this.id,
+    super.key,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late AuthProvider authProvider;
+  late String profileId;
+  late bool isSelf = false;
+
+  @override
+  void initState() {
+    super.initState();
+    profileId = widget.id;
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
+    // TODO: Implement Logic to check if the user is viewing their own profile
+    isSelf = profileId == 'self';
+  }
+
   // Demo Data
   List<ConnectData> connectData = [
     ConnectData(
@@ -37,13 +57,6 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //TODO: Get user profile from auth provider
-  }
-
   _launchUrl(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -53,6 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void _shareProfile(BuildContext context) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,19 +75,26 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text('Profile'),
         actions: [
-          IconButton(
-            onPressed: () {
-              _editProfile(context);
-            },
-            icon: Icon(
-              _isEditing
-                  ? CupertinoIcons.check_mark_circled
-                  : CupertinoIcons.pencil,
-              color: _isEditing
-                  ? Theme.of(context).colorScheme.tertiary
-                  : Theme.of(context).colorScheme.secondary,
-            ),
-          ),
+          !isSelf
+              ? IconButton(
+                  onPressed: () {
+                    _shareProfile(context);
+                  },
+                  icon: const Icon(CupertinoIcons.share),
+                )
+              : IconButton(
+                  onPressed: () {
+                    _editProfile(context);
+                  },
+                  icon: Icon(
+                    _isEditing
+                        ? CupertinoIcons.check_mark_circled
+                        : CupertinoIcons.pencil,
+                    color: _isEditing
+                        ? Theme.of(context).colorScheme.tertiary
+                        : Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
         ],
       ),
       body: Padding(
@@ -93,12 +115,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Hero(
-                    tag: 'profileAvatar',
+                    tag: profileId,
                     child: CircleAvatar(
                       radius: 50,
                       backgroundColor: Theme.of(context).colorScheme.surface,
-                      foregroundImage: const NetworkImage(
-                        'https://i.ibb.co/P4m662W/ai-gen-me.png',
+                      foregroundImage: NetworkImage(
+                        isSelf
+                            ? 'https://i.ibb.co/P4m662W/ai-gen-me.png'
+                            : 'https://i.pravatar.cc/70$profileId',
                       ),
                     ),
                   ),
