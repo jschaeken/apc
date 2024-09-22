@@ -74,7 +74,7 @@ class _NetworkPageState extends State<NetworkPage> {
       id: '1',
       name: 'Sheamie Parra',
       imageUrl:
-          'https://scontent.cdninstagram.com/v/t39.30808-6/439959852_18435939313018442_7542552085840413609_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE2MjIuc2RyLmYzMDgwOCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=102&_nc_ohc=AJzwWSVstY4Q7kNvgGF2tKo&edm=APs17CUAAAAA&ccb=7-5&ig_cache_key=MzM2NjE5MTk1MTYyOTg0NDkzNQ%3D%3D.2-ccb7-5&oh=00_AYA3VHWYHeNX1SLF4ZDB7ZpT359E-bdDIsfyXBdzjX2z_g&oe=6659E93D&_nc_sid=10d13b',
+          'assets/images/sheamie_p.jpg',
       title: 'Online Coach',
       location: 'Dubai, UAE',
     ),
@@ -187,6 +187,7 @@ class MentorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLocal = !backgroundImageUrl.contains('http');
     return GestureDetector(
       onTap: () => onTap(),
       child: Container(
@@ -211,6 +212,13 @@ class MentorCard extends StatelessWidget {
           child: Stack(
             // fit: StackFit.expand,
             children: [
+              isLocal
+                  ? Image.asset(
+                      backgroundImageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    )
+                  :
               Image.network(
                 backgroundImageUrl,
                 fit: BoxFit.cover,
@@ -251,7 +259,10 @@ class MentorCard extends StatelessWidget {
                           // foregroundImage: NetworkImage(backgroundImageUrl),
                           child: CircleAvatar(
                             radius: 48,
-                            foregroundImage: NetworkImage(backgroundImageUrl),
+                            foregroundImage: 
+                              isLocal
+                              ? AssetImage(backgroundImageUrl)
+                              : NetworkImage(backgroundImageUrl),
                           ),
                         ),
                       ),

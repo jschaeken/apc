@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       title: 'Marbella Event',
       subtitle: '28th June - 1st July',
       imageUrl:
-          'https://scontent.cdninstagram.com/v/t51.29350-15/446220488_1018256736590376_2041815765248959615_n.jpg?stp=dst-jpg_e35_p1080x1080&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE4MDAuc2RyLmYyOTM1MCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=rkbS-zjdgagQ7kNvgF_iz_D&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzM3NjQwODg1MTk4NzQ4ODM3NA%3D%3D.2-ccb7-5&oh=00_AYAW_H0zOocl8qpovoSh7PfD0bKwhZIB7p-pg0IUciDJyg&oe=665BD006&_nc_sid=10d13b',
+          'https://www.essentialmagazine.com/wp-content/uploads/2021/02/marbella-weather.jpg',
       location: 'Marbella, Spain',
     ),
     Event(
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       title: 'Darren Lee Call',
       subtitle: 'May 23rd - 2pm EST',
       imageUrl:
-          'https://scontent.cdninstagram.com/v/t51.29350-15/419576751_924968325217028_4678924694160481415_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEwODAuc2RyLmYyOTM1MCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=108&_nc_ohc=FJTrrzRqWbgQ7kNvgEP9aIW&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzI4MjI3NTc0ODMzMDkwNTgwMQ%3D%3D.2-ccb7-5&oh=00_AYAsbr9EOnD0YMOEVVcgtqpaUikYHgn_GZPUaLLF5WsCEw&oe=665BF240&_nc_sid=10d13b',
+          'https://www.essentialmagazine.com/wp-content/uploads/2021/02/marbella-weather.jpg',
     ),
     // Week in Tulum
     Event(
