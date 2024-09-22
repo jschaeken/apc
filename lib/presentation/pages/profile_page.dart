@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -59,12 +60,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   _launchUrl(String url) async {
     Uri uri = Uri.parse(url);
-    // if (await canLaunchUrl(uri)) {
-    //   await launchUrl(uri);
-    // } else {
-    //   throw 'Could not launch $uri';
-    // }
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
       throw 'Could not launch $uri';
+    }
 
   }
 
@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     flex: 2,
                     child: Center(
                       child: Text(
-                        'Jacques Schaeken',
+                        'Tamir Morris',
                         textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "913830929434",
+    "project_id": "aplayersclub",
+    "storage_bucket": "aplayersclub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913830929434:android:b6cf463bbc55385b1ddda3",
+        "android_client_info": {
+          "package_name": "com.essence.apc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm8IO8cY2hkL7WjK55tM6fdn9Tj9Pyf3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,5 +5,5 @@ class ApcRoute extends CupertinoPageRoute {
   ApcRoute({required super.builder});
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 1000);
+  Duration get transitionDuration => const Duration(milliseconds: 500);
 }
