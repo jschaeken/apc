@@ -49,13 +49,12 @@ class _MyAppState extends State<MyApp> {
       // For apple platforms, ensure the APNS token is available before making any FCM plugin API calls
       final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
       if (apnsToken != null) {
-        print('Got APNS token: $apnsToken');
         FirebaseMessaging.instance.getToken().then((token) {
-          print('Token: $token');
+          print('FCM Token: $token');
         });
       }
     } catch (e) {
-      print('Error: $e');
+      print('Noti check error: $e');
     }
 
     FirebaseMessaging messaging = FirebaseMessaging.instance;

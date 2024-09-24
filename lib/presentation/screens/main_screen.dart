@@ -1,5 +1,6 @@
 import 'package:apc/presentation/pages/home_page.dart';
 import 'package:apc/presentation/pages/network_page.dart';
+import 'package:apc/presentation/screens/music_screen.dart';
 import 'package:apc/presentation/state/auth_provider.dart';
 import 'package:apc/presentation/state/nav_provider.dart';
 import 'package:apc/presentation/widgets/constants.dart';
@@ -26,6 +27,12 @@ class _MainScreenState extends State<MainScreen> {
       name: 'Network',
       icons: [CupertinoIcons.person_2, CupertinoIcons.person_2_fill],
       page: NetworkPage(),
+    ),
+    // MusicPage
+    RoutePage(
+      name: 'Music',
+      icons: [CupertinoIcons.music_note, CupertinoIcons.music_note_list],
+      page: MusicScreen(),
     ),
   ];
 

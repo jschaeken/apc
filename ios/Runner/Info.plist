@@ -24,12 +24,24 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+  		<dict>
+    		<key>CFBundleURLName</key>
+    		<string>com.essence.apc</string>
+    		<key>CFBundleURLSchemes</key>
+   			<array>
+    		<string>spotify-ios-quick-start</string>
+    		</array>
+  		</dict>
+	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>
 		<string>tel</string>
+		<string>spotify</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
